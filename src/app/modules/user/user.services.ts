@@ -38,7 +38,14 @@ const createDoctor = async (req: Request) => {
     });
 
     const { id, email, name, contactNumber, address } = newDoctor;
-    await index.addDocuments([{ id, email, name, contactNumber, address }]);
+    // await index.addDocuments([{ id, email, name, contactNumber, address }]);
+    try {
+      await index.addDocuments([{ id, email, name, contactNumber, address }]);
+    } catch (error) {
+      console.error('Failed to add doctor to MeiliSearch:', error);
+      // Optionally: log this or notify admin
+    }
+    
 
     return newDoctor;
   });
